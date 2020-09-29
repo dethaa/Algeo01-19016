@@ -32,9 +32,11 @@ public class MATRIKS {
     }
     
     public double getElmt(int i, int j){
-        return this.matriks[i-1][j-1];
+        /*Mendapatkan elemen indeks baris i dan indeks kolom j */
+        return this.matriks[i][j];
     }
     
+    /****Fungsi pada Matriks****/
     /*Baca dan Tulis*/
     public void bacaMatriks1(){
         /*Baca Melalui Keyboard*/
@@ -51,6 +53,7 @@ public class MATRIKS {
     }
     
     public void tulisMatriks(){
+        /*Menampilkan matriks*/
         for(int i=0; i<baris; i++){
             for(int j=0; j<kolom; j++){
                 System.out.printf("%.2f", this.matriks[i][j]);
@@ -60,7 +63,6 @@ public class MATRIKS {
         }
     }
             
-    /*Operasi pada Matriks*/
     public void swap(int R1, int R2){
         /*Menukar baris R1 dan R2*/
         for (int kol=0; kol<kolom; kol++ ){
@@ -100,29 +102,22 @@ public class MATRIKS {
         return (this.matriks[R][j]==0);        
     }
     
-    public void make1(int i, int j){
-        /*Membagi baris i, agar elemen pertama baris i adalah 1*/
-        double bagi=this.matriks[i][j];
-        for (int kol=j; kol<kolom;kol++){
-            this.matriks[i][kol]=this.matriks[i][kol]/bagi;
-        }
-    }
-    
-    public int getLead(int i){
-        /*Memunculkan indek pertama yang bukan 0 pada baris i*/
-        boolean cek = false;
+    public int getLead(int R){
+        /*Mengembalikan indeks pertama yang bukan 0 pada baris i*/
+        boolean cek = true;
         int j = 0;
-        while(j<kolom && !cek){
-            cek = (this.matriks[i][j]!=0);
-            if(this.matriks[i][j]==0){
+        while(j<kolom && cek){
+            if(this.matriks[R][j]==0){
                 j++;
+            } else {
+                cek=false;
             }
         }
          return j;
     }
     
     public void sortMatriks(){
-        /*Mengurutkan berdasarkan getLead membesar*/
+        /*Mengurutkan matriks berdasarkan getLead yang mengurut membesar*/
         int temp;
         int minLead;
         for(int i=0; i<baris; i++){
@@ -138,6 +133,7 @@ public class MATRIKS {
     }
     
     public void gauss(){
+        /*melakukan OBE dengan metode eliminasi Gauss*/
         double leadKoef;
         double L;
         this.sortMatriks();
@@ -154,7 +150,7 @@ public class MATRIKS {
                 }
             }
         }
-        /*setiap elemen pertama yang bukan nol di tiap baris bernilai 1*/
+        /*setiap elemen pertama yang bukan nol (lead) di tiap baris bernilai 1*/
         for (int i=0; i<baris; i++){
             if (!this.isBrsZero(i)){
                 leadKoef=this.matriks[i][this.getLead(i)];
@@ -165,6 +161,7 @@ public class MATRIKS {
     }
     
     public void gaussJordan(){
+        /*Melakukan OBE dengan metode eliminasi Gauss Jordan*/
         this.gauss();
         for (int i=baris-1; i>0; i--){
             if (!this.isBrsZero(i)){

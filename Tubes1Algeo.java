@@ -63,13 +63,13 @@ public class Tubes1Algeo {
                 int metode2 = scan.nextInt();
                 switch(metode2){
                     case 1: //Metode reduksi baris
-                        deter.detreduksi();
+                        deter.detReduksi();
                         break;
                     case 2: //Metode ekspansi kofaktor
                         MATRIKS m = new MATRIKS();
                         m.bacaMatriks1();
                         if (m.isSquare()){
-                            System.out.println("Determinannya adalah " + deter.detkofaktor(m));
+                            System.out.println("Determinannya adalah " + deter.detKofaktor(m));
                         } else{
                             System.out.println("Bukan matriks persegi, determinan tidak dapat dicari.");
                         }

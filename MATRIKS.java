@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package algeo01;
 
 
@@ -73,14 +69,14 @@ public class MATRIKS {
     }
     
     public void plus(int R1, int R2, double K, double L){
-        /* Menambah sekalius kali: K*R1 + L*R2*/
+        /* Menambah sekaligus kali: K*R1 + L*R2*/
         for (int kol=0; kol<kolom; kol++ ){
             this.matriks[R1][kol]=K*this.matriks[R1][kol] + L*this.matriks[R2][kol];
         }
     }
     
     public void minus(int R1, int R2, double K, double L){
-        /* Mengurang sekalius kali: K*R1 - L*R2*/
+        /* Mengurang sekaligus kali: K*R1 - L*R2*/
         for (int kol=0; kol<kolom; kol++ ){
             this.matriks[R1][kol]=K*this.matriks[R1][kol] - L*this.matriks[R2][kol];
         }
@@ -100,6 +96,11 @@ public class MATRIKS {
             j++;
         }
         return (this.matriks[R][j]==0);        
+    }
+    
+    public boolean isSquare(){
+        /*menghasilkan benar hanya jika matriks persegi*/
+        return (this.getBrs()==this.getKol());
     }
     
     public int getLead(int R){
@@ -137,7 +138,7 @@ public class MATRIKS {
         double leadKoef;
         double L;
         this.sortMatriks();
-        /*buat seperti segetiga bawah bernilai 0*/
+        /*buat seperti segitiga bawah bernilai 0*/
         for(int i=0;i<baris;i++){
             if (!this.isBrsZero(i)){
                 leadKoef=this.matriks[i][this.getLead(i)];
@@ -156,6 +157,7 @@ public class MATRIKS {
                 leadKoef=this.matriks[i][this.getLead(i)];
                 double temp=1/leadKoef;
                 this.kaliKoef(i, temp);
+                this.matriks[i][this.getLead(i)]=1; //agar tampilan bagus
             }
         }
     }
@@ -168,6 +170,7 @@ public class MATRIKS {
                 for (int j=i-1; j>=0; j--){
                     double L=this.matriks[j][this.getLead(i)];
                     this.minus(j, i, 1, L);
+                    this.matriks[j][this.getLead(i)]=0; //agar tampilan bagus
                 }
             }
         }

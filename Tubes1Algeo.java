@@ -56,6 +56,7 @@ public class Tubes1Algeo {
                     case 4: //Kaidah cramer
                         break;
                 }
+                bacaMenu();
                 break;
             case 2: //Determinan
                 pil2();
@@ -63,18 +64,25 @@ public class Tubes1Algeo {
                 int metode2 = scan.nextInt();
                 switch(metode2){
                     case 1: //Metode reduksi baris
-                        deter.detReduksi();
-                        break;
-                    case 2: //Metode ekspansi kofaktor
                         MATRIKS m = new MATRIKS();
                         m.bacaMatriks1();
                         if (m.isSquare()){
-                            System.out.println("Determinannya adalah " + deter.detKofaktor(m));
+                            System.out.println("Determinannya adalah " + deter.detReduksi(m));
+                        } else{
+                            System.out.println("Bukan matriks persegi, determinan tidak dapat dicari.");
+                        }
+                        break;
+                    case 2: //Metode ekspansi kofaktor
+                        MATRIKS m2 = new MATRIKS();
+                        m2.bacaMatriks1();
+                        if (m2.isSquare()){
+                            System.out.println("Determinannya adalah " + deter.detKofaktor(m2));
                         } else{
                             System.out.println("Bukan matriks persegi, determinan tidak dapat dicari.");
                         }
                         break;
                 }
+                bacaMenu();
                 break;
             case 3: //Matriks balikan
                 pil3();
@@ -85,10 +93,13 @@ public class Tubes1Algeo {
                     case 2: //Metode adjoin
                         break;
                 }
+                bacaMenu();
                 break;
             case 4: //Interpolasi polinom
+                bacaMenu();
                 break;
             case 5: //Regresi linier berganda
+                bacaMenu();
                 break;
             case 6: //Keluar
                 System.out.println("Terima kasih :)");

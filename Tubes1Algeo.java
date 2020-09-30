@@ -59,11 +59,20 @@ public class Tubes1Algeo {
                 break;
             case 2: //Determinan
                 pil2();
+                Determinan deter = new Determinan();
                 int metode2 = scan.nextInt();
                 switch(metode2){
                     case 1: //Metode reduksi baris
+                        deter.detreduksi();
                         break;
                     case 2: //Metode ekspansi kofaktor
+                        MATRIKS m = new MATRIKS();
+                        m.bacaMatriks1();
+                        if (m.isSquare()){
+                            System.out.println("Determinannya adalah " + deter.detkofaktor(m));
+                        } else{
+                            System.out.println("Bukan matriks persegi, determinan tidak dapat dicari.");
+                        }
                         break;
                 }
                 break;

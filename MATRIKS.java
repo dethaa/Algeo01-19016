@@ -1,5 +1,4 @@
-
-package algeo01;
+package tubes1algeo;
 
 
 import java.util.Scanner;
@@ -16,6 +15,18 @@ public class MATRIKS {
         matriks=new double[i][j];
         baris=i;
         kolom=j;
+    }
+    public void makeMATRIKS(int i, int j){
+        /*Membuat matriks kosong dengan ukuran ixj 
+        semua elemen matriks berisi nilai 0*/
+        this.baris=i;
+        this.kolom=j;
+        this.matriks = new double[this.baris][this.kolom];
+        for (int a=0; a<baris; a++){
+            for (int b=0; b<kolom; b++){
+                this.matriks[a][b]=0;
+            }
+        }
     }
     
     /*Selektor*/
@@ -90,7 +101,7 @@ public class MATRIKS {
     }
     
     public boolean isBrsZero(int R){
-        /*mengecek apakah baris itu 0 semua*/
+        /*Mengecek apakah seluruh elemen baris bernilai 0*/
         int j=0;
         while(this.matriks[R][j]==0 && j<kolom-1){
             j++;
@@ -99,7 +110,7 @@ public class MATRIKS {
     }
     
     public boolean isSquare(){
-        /*menghasilkan benar hanya jika matriks persegi*/
+        /*Mengecek apakah matriks merupakan matriks persegi*/
         return (this.getBrs()==this.getKol());
     }
     
@@ -134,11 +145,11 @@ public class MATRIKS {
     }
     
     public void gauss(){
-        /*melakukan OBE dengan metode eliminasi Gauss*/
+        /*Melakukan OBE dengan metode eliminasi Gauss*/
         double leadKoef;
         double L;
         this.sortMatriks();
-        /*buat seperti segitiga bawah bernilai 0*/
+        /*Membuat seperti segitiga bawah bernilai 0*/
         for(int i=0;i<baris;i++){
             if (!this.isBrsZero(i)){
                 leadKoef=this.matriks[i][this.getLead(i)];
@@ -151,7 +162,7 @@ public class MATRIKS {
                 }
             }
         }
-        /*setiap elemen pertama yang bukan nol (lead) di tiap baris bernilai 1*/
+        /*Setiap elemen pertama yang bukan nol (lead) di tiap baris bernilai 1*/
         for (int i=0; i<baris; i++){
             if (!this.isBrsZero(i)){
                 leadKoef=this.matriks[i][this.getLead(i)];
@@ -176,4 +187,3 @@ public class MATRIKS {
         }
     }
 }
-

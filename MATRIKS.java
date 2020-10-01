@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package tubes_1algeo;
+package tubes1algeo;
 
+import java.util.Arrays;
 
 import java.util.Scanner;
 
@@ -60,6 +56,15 @@ public class MATRIKS {
         for (int i=0; i<baris; i++){
             for (int j=0; j<kolom; j++){
                 this.matriks[i][j]=input.nextDouble();
+            }
+        }
+    }
+    
+    public void bacaMatriks2(int i, int j){
+        /*membaca matriks dengan ukuran ixj*/
+        for (int brs=0; brs<i; brs++){
+            for (int kol=0; kol<j; kol++){
+                this.matriks[brs][kol]=input.nextDouble();
             }
         }
     }
@@ -192,104 +197,58 @@ public class MATRIKS {
         }
     }
     
-    public void makeIdentitas(){
-         MATRIKS m = new MATRIKS();
-        m.bacaMatriks1();
-        
-        
-       
-        
-     
-       
-        if (m.kolom==m.baris){
-            int i=0;
-            while(i<= m.baris){
-                int j=0;
-                while (j<=m.kolom){
-                    if(i!=j){
-                        this.matriks[i][j]=0;
-                      
+    public void tulisHasil(){
+        boolean tidakAda=false;
+        /*cek apakah ada hasil*/
+        int i=0;
+        while (i<baris && !(tidakAda)){
+            if (this.getLead(i)==kolom-1){
+                tidakAda=false;
+            }
+        }
+        /*cek apakah solusi banyak*/
+        boolean solBnyk=false;
+        int banyak=0;
+        for(int R=0;R<baris;R++){
+            if (this.isBrsZero(R)){
+                banyak++;
+            }
+        }
+        if (tidakAda){
+            System.out.println("Solusi tidak ada");
+        } else if (solBnyk){
+            char huruf='a';
+            for (int R=baris-1;R>=0;R++){
+                if (this.isBrsZero(R)){
+                    System.out.printf("x%d=%c", R, 'a' );
+                    /*belum selesai*/
+                }
+            }
+        }
+    }
+    
+    public void cramer(){
+        MATRIKS A= new MATRIKS();
+        MATRIKS hasil=new MATRIKS();
+        System.out.println("Masukkan matriks koefisien:");
+        A.bacaMatriks1();
+        System.out.println("Masukkan matriks hasil:");
+        hasil.bacaMatriks2(A.getBrs(), 1);
+        Determinan deter = new Determinan();
+        double [] det= new double[A.baris];
+        for (int k=0;k<A.kolom;k++){
+            MATRIKS M = new MATRIKS();
+            for (int i=0;i<A.baris;i++){
+                for (int j=0;j<A.kolom;j++){
+                    if (j==k){
+                        M.matriks[i][j]=hasil.matriks[i][0];
+                    } else {
+                        M.matriks[i][j]=A.matriks[i][j];
                     }
-                    else{
-                        this.matriks[i][j]=1;
-                        
-                    }
-                    j=j+1;
                 }
-                i=i+1;
-            
             }
-            
+            det[k]=M.determinan();
+            /*belum selesai*/
         }
     }
-    
-    
-     public MATRIKS gabungMatriks(MATRIKS N1, MATRIKS N2){
-        
-        MATRIKS gabungan = new MATRIKS();
-        gabungan.MATRIKS(N1.baris,(N1.kolom+N2.kolom));
-
-
-
-        if (N1.baris == N2.baris){
-            int i=0;
-            while(i<= N1.baris){
-                int j=0;
-                while (j<=N2.kolom){
-            
-                    gabungan.matriks[i][j]=N1.matriks[i][j];
-                    
-                    j=j+1;
-                }
-                i=i+1;
-            
-            }
-            i=0;
-            while(i<= N1.baris){
-                int j=0;
-                while (j<=N2.kolom){
-                    gabungan.matriks[i][j] = N2.matriks[i][j-N1.kolom];
-                    j=j+1;
-                }
-                i=i+1;
-            
-            }
-       
-        }
-        else{
-            
-        }
-        return gabungan;
-
-        
-    }
-    
-    public MATRIKS potongMatriks(int a, int b){
-        MATRIKS potong = new MATRIKS();
-        potong.MATRIKS(this.baris ,b-a+1);
-        
-        if ((a >= 0 && a < this.kolom) && (b >= 0 && b < this.kolom) && (a <= b)){
-            
-            for (int i = 0; i < this.baris; i++){
-                int Kolom = 0;
-                for (int j = a; j <= b; j++){
-                    potong.matriks[i][Kolom] = this.matriks[i][j];
-                    Kolom++;
-                }
-            }
-           
-	}
-        else{
-           
-	}
-        return potong;
-    }
-    
-}  
-
-    
-    
-
-
-
-    
+}

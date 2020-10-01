@@ -152,54 +152,63 @@ public class MATRIKS {
         }  
     }
     
-    public void makeIdentitas(int r){   
-        MATRIKS m = new MATRIKS();
-        int i=0;
-        while(i<= r){
-            int j=0;
-            while (j<= r){
-                if(i!=j){
-                    m.matriks[i][j]=0;                     
+    public void kaliMatriks(MATRIKS m1, MATRIKS m2){
+        /*m1 dikali m2*/
+        MATRIKS M=new MATRIKS();
+        M.makeMATRIKS(m1.baris, m2.kolom);
+        for (int i=0;i<M.baris; i++){
+            if (M.kolom>0){
+                for (int j=0;j<M.kolom;j++){
+                    for (int k=0;k<m1.kolom;k++){
+                        M.matriks[i][j]+=m1.matriks[i][k]*m2.matriks[k][j];
+                    }
                 }
-                else{
-                    m.matriks[i][j]=1;
-                        
+            } else {
+                for (int k=0;k<m1.kolom;k++){
+                    M.matriks[i][0]+=m1.matriks[i][k]*m2.matriks[k][0];
                 }
-                j=j+1;
             }
-            i=i+1;       
         }
     }
+    
+    public void makeIdentitas(int r){   
+        for (int i = 0; i < r ; i++){
+            for (int j = 0; j < r ; j++){
+                if (i == j){
+                    this.matriks[i][j] = 1;
+                }
+                else{
+                    this.matriks[i][j] = 0;
+                }
+            }
+	}
+    }  
     
     
      public MATRIKS gabungMatriks(MATRIKS N1, MATRIKS N2){        
         MATRIKS gabungan = new MATRIKS();
         gabungan.MATRIKS(N1.baris,(N1.kolom+N2.kolom));
+
         if (N1.baris == N2.baris){
-            int i=0;
-            while(i<= N1.baris){
-                int j=0;
-                while (j<=N2.kolom){
-            
-                    gabungan.matriks[i][j]=N1.matriks[i][j];
-                    
-                    j=j+1;
-                }
-                i=i+1;           
+            for (int i = 0; i < N1.baris; i++){
+                for (int j = 0; j < N1.kolom; j++){
+                    gabungan.matriks[i][j] = N1.matriks[i][j];
+		}
             }
-            i=0;
-            while(i<= N1.baris){
-                int j=0;
-                while (j<=N2.kolom){
+            for (int i = 0; i < N1.baris; i++){
+                for (int j = N1.kolom; j < N1.kolom + N2.kolom; j++){
                     gabungan.matriks[i][j] = N2.matriks[i][j-N1.kolom];
-                    j=j+1;
                 }
-                i=i+1;           
-            }       
+            }
+            return gabungan;
+                 
         }
-        else{  
+       
+        
+        else{
+            
         }
-        return gabungan;   
+        return gabungan;
     }
     
     public MATRIKS potongMatriks(int a, int b){

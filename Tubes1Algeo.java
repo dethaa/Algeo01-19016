@@ -60,10 +60,14 @@ public class Tubes1Algeo {
                         n.gaussJordan();
                         n.tulisHasil();
                         break;
-                    case 3: //Metode matriks balikan
+                    case 3: //Metode matriks balikan1
+                        MATRIKS.balikan();
                         break;
                     case 4: //Kaidah cramer
-                        MATRIKS.cramer();
+                        MATRIKS baru=new MATRIKS();
+                        System.out.println("Masukkan matriks augmented.");
+                        baru.bacaMatriks1();
+                        baru.cramer();
                         break;
                 }
                 bacaMenu();

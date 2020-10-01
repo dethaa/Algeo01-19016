@@ -96,6 +96,8 @@ public class Tubes1Algeo {
                 bacaMenu();
                 break;
             case 4: //Interpolasi polinom
+                Interpolasi ip = new Interpolasi();
+                ip.interpol();
                 bacaMenu();
                 break;
             case 5: //Regresi linier berganda

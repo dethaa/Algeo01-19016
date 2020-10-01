@@ -40,6 +40,7 @@ public class Tubes1Algeo {
     }
     public static void bacaMenu(){
         Scanner scan = new Scanner(System.in);
+        
         menu();
         int pilihan = scan.nextInt();
         switch(pilihan){
@@ -48,6 +49,10 @@ public class Tubes1Algeo {
                 int metode1 = scan.nextInt();
                 switch(metode1){
                     case 1: //Metode eliminasi Gaus
+                        MATRIKS m = new MATRIKS();
+                        m.bacaMatriks1();
+                        m.gauss();
+                        m.tulisMatriks();
                         break;
                     case 2: //Metode eliminasi Gauss-Jordan
                         break;
@@ -101,6 +106,8 @@ public class Tubes1Algeo {
                 bacaMenu();
                 break;
             case 5: //Regresi linier berganda
+                Regresi reg = new Regresi();
+                reg.regresi();
                 bacaMenu();
                 break;
             case 6: //Keluar

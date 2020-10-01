@@ -28,6 +28,19 @@ public class MATRIKS {
         }
     }
     
+    public void makeMATRIKS2(int i, int j){
+        /*Membuat matriks kosong dengan ukuran ixj 
+        semua elemen matriks berisi nilai 1*/
+        this.baris=i;
+        this.kolom=j;
+        this.matriks = new double[this.baris][this.kolom];
+        for (int a=0; a<baris; a++){
+            for (int b=0; b<kolom; b++){
+                this.matriks[a][b]=1;
+            }
+        }
+    }
+    
     /*Selektor*/
     public int getBrs(){
         return this.baris;
@@ -103,15 +116,22 @@ public class MATRIKS {
     
     public void kaliKoef(int R, double X){
         /*Mengalikan seluruh baris R dengan X*/
-        for (int j=this.getLead(R); j<baris;j++){
+        for (int j=this.getLead(R); j<this.kolom;j++){
             this.matriks[R][j]=this.matriks[R][j]*X;
+        }
+    }
+    
+    public void kaliKoef2(int R, double X){
+        /*Mengalikan seluruh kolom R dengan X*/
+        for (int j=0; j<this.baris;j++){
+            this.matriks[j][R]=this.matriks[j][R]*X;
         }
     }
     
     public boolean isBrsZero(int R){
         /*Mengecek apakah seluruh elemen baris bernilai 0*/
         int j=0;
-        while(this.matriks[R][j]==0 && j<kolom-1){
+        while(this.matriks[R][j]==0 && j<this.kolom-1){
             j++;
         }
         return (this.matriks[R][j]==0);        
@@ -123,7 +143,7 @@ public class MATRIKS {
     }
     
     public int getLead(int R){
-        /*Mengembalikan indeks pertama yang bukan 0 pada baris i*/
+        /*Mengembalikan indeks pertama yang bukan 0 pada baris R*/
         boolean cek = true;
         int j = 0;
         while(j<kolom && cek){
@@ -234,10 +254,10 @@ public class MATRIKS {
         double L;
         this.sortMatriks();
         /*Membuat seperti segitiga bawah bernilai 0*/
-        for(int i=0;i<baris;i++){
+        for(int i=0;i<this.baris;i++){
             if (!this.isBrsZero(i)){
                 leadKoef=this.matriks[i][this.getLead(i)];
-                for (int j=i+1; j<baris;j++){
+                for (int j=i+1; j<this.baris;j++){
                     if(!this.isBrsZero(j)){
                         L=this.matriks[j][this.getLead(i)]/leadKoef;
                         this.minus(j, i, 1, L);
@@ -247,7 +267,7 @@ public class MATRIKS {
             }
         }
         /*Setiap elemen pertama yang bukan nol (lead) di tiap baris bernilai 1*/
-        for (int i=0; i<baris; i++){
+        for (int i=0; i<this.baris; i++){
             if (!this.isBrsZero(i)){
                 leadKoef=this.matriks[i][this.getLead(i)];
                 double temp=1/leadKoef;
@@ -260,7 +280,7 @@ public class MATRIKS {
     public void gaussJordan(){
         /*Melakukan OBE dengan metode eliminasi Gauss Jordan*/
         this.gauss();
-        for (int i=baris-1; i>0; i--){
+        for (int i=this.baris-1; i>0; i--){
             if (!this.isBrsZero(i)){
                 for (int j=i-1; j>=0; j--){
                     double L=this.matriks[j][this.getLead(i)];
@@ -275,28 +295,98 @@ public class MATRIKS {
         boolean tidakAda=false;
         /*cek apakah ada hasil*/
         int i=0;
-        while (i<baris && !(tidakAda)){
-            if (this.getLead(i)==kolom-1){
-                tidakAda=false;
+        while (i<this.baris && !(tidakAda)){
+            if (this.getLead(i)==this.kolom-1){
+                tidakAda=true;
             }
+            i++;
         }
         /*cek apakah solusi banyak*/
         boolean solBnyk=false;
-        int banyak=0;
-        for(int R=0;R<baris;R++){
+        for(int R=0;R<this.kolom-1;R++){
             if (this.isBrsZero(R)){
-                banyak++;
+                solBnyk=true;
             }
+        }
+        double [] nilai=new double[this.kolom-1];
+        for (int x=0; x<this.kolom-1;x++){
+            nilai[x]=0;
         }
         if (tidakAda){
             System.out.println("Solusi tidak ada");
         } else if (solBnyk){
-            char huruf='a';
-            for (int R=baris-1;R>=0;R++){
-                if (this.isBrsZero(R)){
-                    System.out.printf("x%d=%c", R, 'a' );
-                    /*belum selesai*/
+            MATRIKS var = new MATRIKS();
+            var.makeIdentitas(this.kolom-1);
+            for (int R=0;R<this.kolom-1;R++){
+                if (!(this.isBrsZero(R))){
+                    var.matriks[this.getLead(R)][this.getLead(R)]=0;
                 }
+            }
+            char [] huruf = {'a','b','c','d','e','f','g','h','i','j','k','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','v','w','y','z'};
+            for (int R=this.kolom-2;R>=0;R--){
+                if(!(this.isBrsZero(R))) {
+                    nilai[R]=this.matriks[R][this.kolom - 1];
+                    if(R<this.kolom-2){
+                        for (int k=this.getLead(R)+1;k<this.kolom-1;k++){
+                            nilai[R]=nilai[R] - (this.matriks[R][k]*nilai[k]);
+                            var.matriks[R][k]=var.matriks[R][k] + (this.matriks[R][k]*var.matriks[k][k]);
+                        }
+                    } 
+                }
+            }
+            for(int R=0;R<this.kolom-1;R++){
+                if (this.isBrsZero(R)){
+                    System.out.printf("X%d = %c ;",R+1, huruf[R]);
+                } else {
+                    System.out.printf("X%d = ",R+1);
+                    if(nilai[R]!=0){
+                        System.out.printf("%.2f ", nilai[R]);
+                        for (int l=0;l<this.kolom-1;l++){
+                            if(var.matriks[R][l]!=0){
+                                if (var.matriks[R][l]>0){
+                                    System.out.printf("+ %.2f%c ", var.matriks[R][l], huruf[l]);
+                                } else {
+                                    double cek=var.matriks[R][l]*(-1);
+                                    System.out.printf("- %.2f%c ", cek, huruf[l]);
+                                }
+                            }
+                        }
+                    } else{
+                        boolean awal=true;
+                        for (int l=0;l<this.kolom-1;l++){
+                            if(var.matriks[R][l]!=0){
+                                if (var.matriks[R][l]>0){
+                                    if (awal){
+                                        System.out.printf("%.2f%c ", var.matriks[R][l], huruf[l]);
+                                        awal=false;
+                                    } else{
+                                        System.out.printf("+ %.2f%c ", var.matriks[R][l], huruf[l]);
+                                    }
+                                    
+                                } else {
+                                    if (awal){
+                                        System.out.printf("%.2f%c ", var.matriks[R][l], huruf[l]);
+                                        awal=false;
+                                    } else{
+                                        double cek=var.matriks[R][l]*(-1);
+                                        System.out.printf("- %.2f%c", cek, huruf[l]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    System.out.printf(";");
+                }
+            }
+        } else{
+            for (int R=this.kolom-2;R>=0;R--){
+                nilai[R]=this.matriks[R][(this.kolom-1)];
+                if (R<this.kolom-2){
+                    for (int k=this.getLead(R)+1;k<this.kolom-1;k++){
+                        nilai[R]=nilai[R] - (this.matriks[R][k]*nilai[k]);
+                    }
+                }    
+                System.out.printf("X%d = %.2f ;", R+1, nilai[R]);
             }
         }
     }

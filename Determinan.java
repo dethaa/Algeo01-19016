@@ -1,6 +1,5 @@
 package tubes1algeo;
 import java.util.Scanner;
-import java.io.*;
 
 public class Determinan extends MATRIKS {
     Scanner scan = new Scanner(System.in);
@@ -45,25 +44,25 @@ public class Determinan extends MATRIKS {
     public static double detKofaktor(MATRIKS m){
         MATRIKS temp = new MATRIKS();
         double det = 0;
-        if (m.getBrs()==2){
-            det=((m.getElmt(0, 0)*m.getElmt(1, 1)) - (m.getElmt(1, 0)*m.getElmt(0, 1)));
+        if (m.baris==2){
+            det=((m.matriks[0][0]*m.matriks[1][1]) - (m.matriks[1][0]*m.matriks[0][1]));
         }else {
             int i,j,k;
-            temp.makeMATRIKS(m.getBrs(), m.getKol());
+            temp.makeMATRIKS(m.getBrs()-1, m.getKol()-1);
             for(k=0;k<m.getKol();k++){
                 for (i=1;i<m.getBrs();i++){
                     for (j=0;j<m.getKol();j++){
                         if (j>k){
                             temp.matriks[i-1][j-1] = m.getElmt(i, j);
-                        } else{
+                        } else if(j<k){
                             temp.matriks[i-1][j] = m.getElmt(i, j);
                         }
                     }
                 }
                 if (k%2==0){
-                    det += m.getElmt(0, k)*((temp.getElmt(0, 0)*temp.getElmt(1, 1)) - (temp.getElmt(1, 0)*temp.getElmt(0, 1)));
+                    det += m.matriks[0][k]*(detKofaktor(temp));
                 } else{
-                    det -= m.getElmt(0, k)*((temp.getElmt(0, 0)*temp.getElmt(1, 1)) - (temp.getElmt(1, 0)*temp.getElmt(0, 1)));
+                    det -= m.matriks[0][k]*(detKofaktor(temp));
                 }
             }
         } 

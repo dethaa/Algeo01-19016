@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package tubes_1algeo;
-
+package tubes1algeo;
 
 import java.util.Scanner;
 
@@ -60,6 +54,15 @@ public class MATRIKS {
         for (int i=0; i<baris; i++){
             for (int j=0; j<kolom; j++){
                 this.matriks[i][j]=input.nextDouble();
+            }
+        }
+    }
+    
+    public void bacaMatriks2(int i, int j){
+        /*membaca matriks dengan ukuran ixj*/
+        for (int brs=0; brs<i; brs++){
+            for (int kol=0; kol<j; kol++){
+                this.matriks[brs][kol]=input.nextDouble();
             }
         }
     }
@@ -149,6 +152,73 @@ public class MATRIKS {
         }  
     }
     
+    public void makeIdentitas(int r){   
+        MATRIKS m = new MATRIKS();
+        int i=0;
+        while(i<= r){
+            int j=0;
+            while (j<= r){
+                if(i!=j){
+                    m.matriks[i][j]=0;                     
+                }
+                else{
+                    m.matriks[i][j]=1;
+                        
+                }
+                j=j+1;
+            }
+            i=i+1;       
+        }
+    }
+    
+    
+     public MATRIKS gabungMatriks(MATRIKS N1, MATRIKS N2){        
+        MATRIKS gabungan = new MATRIKS();
+        gabungan.MATRIKS(N1.baris,(N1.kolom+N2.kolom));
+        if (N1.baris == N2.baris){
+            int i=0;
+            while(i<= N1.baris){
+                int j=0;
+                while (j<=N2.kolom){
+            
+                    gabungan.matriks[i][j]=N1.matriks[i][j];
+                    
+                    j=j+1;
+                }
+                i=i+1;           
+            }
+            i=0;
+            while(i<= N1.baris){
+                int j=0;
+                while (j<=N2.kolom){
+                    gabungan.matriks[i][j] = N2.matriks[i][j-N1.kolom];
+                    j=j+1;
+                }
+                i=i+1;           
+            }       
+        }
+        else{  
+        }
+        return gabungan;   
+    }
+    
+    public MATRIKS potongMatriks(int a, int b){
+        MATRIKS potong = new MATRIKS();
+        potong.MATRIKS(this.baris ,b-a+1); 
+        if ((a >= 0 && a < this.kolom) && (b >= 0 && b < this.kolom) && (a <= b)){            
+            for (int i = 0; i < this.baris; i++){
+                int Kolom = 0;
+                for (int j = a; j <= b; j++){
+                    potong.matriks[i][Kolom] = this.matriks[i][j];
+                    Kolom++;
+                }
+            } 
+	}
+        else{  
+	}
+        return potong;
+    }
+    
     public void gauss(){
         /*Melakukan OBE dengan metode eliminasi Gauss*/
         double leadKoef;
@@ -192,97 +262,6 @@ public class MATRIKS {
         }
     }
     
-    public void makeIdentitas(int r){
-     
-        
-        
-       
-        
-     
-       
-        MATRIKS m = new MATRIKS();
-        int i=0;
-        while(i<= r){
-            int j=0;
-            while (j<= r){
-                if(i!=j){
-                    m.matriks[i][j]=0;
-                      
-                }
-                else{
-                    m.matriks[i][j]=1;
-                        
-                }
-                j=j+1;
-            }
-            i=i+1;
-            
-            
-            
-        }
-    }
-    
-    
-     public MATRIKS gabungMatriks(MATRIKS N1, MATRIKS N2){
-        
-        MATRIKS gabungan = new MATRIKS();
-        gabungan.MATRIKS(N1.baris,(N1.kolom+N2.kolom));
-
-
-
-        if (N1.baris == N2.baris){
-            int i=0;
-            while(i<= N1.baris){
-                int j=0;
-                while (j<=N2.kolom){
-            
-                    gabungan.matriks[i][j]=N1.matriks[i][j];
-                    
-                    j=j+1;
-                }
-                i=i+1;
-            
-            }
-            i=0;
-            while(i<= N1.baris){
-                int j=0;
-                while (j<=N2.kolom){
-                    gabungan.matriks[i][j] = N2.matriks[i][j-N1.kolom];
-                    j=j+1;
-                }
-                i=i+1;
-            
-            }
-       
-        }
-        else{
-            
-        }
-        return gabungan;
-
-        
-    }
-    
-    public MATRIKS potongMatriks(int a, int b){
-        MATRIKS potong = new MATRIKS();
-        potong.MATRIKS(this.baris ,b-a+1);
-        
-        if ((a >= 0 && a < this.kolom) && (b >= 0 && b < this.kolom) && (a <= b)){
-            
-            for (int i = 0; i < this.baris; i++){
-                int Kolom = 0;
-                for (int j = a; j <= b; j++){
-                    potong.matriks[i][Kolom] = this.matriks[i][j];
-                    Kolom++;
-                }
-            }
-           
-	}
-        else{
-           
-	}
-        return potong;
-    }
     public void tulisHasil(){
         boolean tidakAda=false;
         /*cek apakah ada hasil*/
@@ -321,7 +300,6 @@ public class MATRIKS {
         System.out.println("Masukkan matriks hasil:");
         hasil.bacaMatriks2(A.getBrs(), 1);
         Determinan deter = new Determinan();
-        double [] det= new double[A.baris];
         for (int k=0;k<A.kolom;k++){
             MATRIKS M = new MATRIKS();
             for (int i=0;i<A.baris;i++){
@@ -333,15 +311,7 @@ public class MATRIKS {
                     }
                 }
             }
-            det[k]=M.determinan();
-            /*belum selesai*/
+            System.out.printf("x%d=%f", k+1 ,Determinan.detReduksi(A)/Determinan.detKofaktor(M) );
         }
     }
-}  
-
-    
-    
-
-
-
-    
+}

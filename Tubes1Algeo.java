@@ -52,13 +52,18 @@ public class Tubes1Algeo {
                         MATRIKS m = new MATRIKS();
                         m.bacaMatriks1();
                         m.gauss();
-                        m.tulisMatriks();
+                        m.tulisHasil();
                         break;
                     case 2: //Metode eliminasi Gauss-Jordan
+                        MATRIKS n = new MATRIKS();
+                        n.bacaMatriks1();
+                        n.gaussJordan();
+                        n.tulisHasil();
                         break;
                     case 3: //Metode matriks balikan
                         break;
                     case 4: //Kaidah cramer
+                        MATRIKS.cramer();
                         break;
                 }
                 bacaMenu();

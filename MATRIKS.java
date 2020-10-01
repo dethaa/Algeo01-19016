@@ -172,23 +172,28 @@ public class MATRIKS {
         }  
     }
     
-    public void kaliMatriks(MATRIKS m1, MATRIKS m2){
+    public static MATRIKS kaliMatriks(MATRIKS m1, MATRIKS m2){
         /*m1 dikali m2*/
         MATRIKS M=new MATRIKS();
         M.makeMATRIKS(m1.baris, m2.kolom);
         for (int i=0;i<M.baris; i++){
-            if (M.kolom>0){
-                for (int j=0;j<M.kolom;j++){
-                    for (int k=0;k<m1.kolom;k++){
-                        M.matriks[i][j]+=m1.matriks[i][k]*m2.matriks[k][j];
-                    }
-                }
-            } else {
+            for (int j=0;j<M.kolom;j++){
                 for (int k=0;k<m1.kolom;k++){
-                    M.matriks[i][0]+=m1.matriks[i][k]*m2.matriks[k][0];
+                    M.matriks[i][j]+=m1.matriks[i][k]*m2.matriks[k][j];
                 }
             }
         }
+        return M;
+    }
+    
+    public static double[] kaliMatriks2(MATRIKS m1, double [] m2){
+        double[] M = new double [m1.kolom];
+        for (int i=0;i<m1.baris;i++){
+            for (int k=0; k<m1.kolom; k++){
+                M[i]+=m1.matriks[i][k]*m2[k];
+            }
+        }
+        return M;
     }
     
     public void makeIdentitas(int r){   
@@ -389,28 +394,56 @@ public class MATRIKS {
                 System.out.printf("X%d = %.2f ;", R+1, nilai[R]);
             }
         }
+        System.out.println("\n");
     }
     
     public void cramer(){
+        /*menyelesaikan SPL dengan metode cramer*/
+        
+        
         MATRIKS A= new MATRIKS();
-        MATRIKS hasil=new MATRIKS();
-        System.out.println("Masukkan matriks koefisien:");
-        A.bacaMatriks1();
-        System.out.println("Masukkan matriks hasil:");
-        hasil.bacaMatriks2(A.getBrs(), 1);
-        Determinan deter = new Determinan();
+        A.makeMATRIKS(this.baris, this.baris);
+        double [] hasil=new double[this.baris];
+        for (int i=0;i<this.baris;i++){
+            for (int j=0;j<this.kolom;j++){
+                if (j==(this.kolom-1)){
+                    hasil[i] = this.matriks[i][j];
+                } else{
+                    A.matriks[i][j]= this.matriks[i][j];
+                }
+                
+            }
+        }
         for (int k=0;k<A.kolom;k++){
             MATRIKS M = new MATRIKS();
+            M.makeMATRIKS(A.baris, A.kolom);
             for (int i=0;i<A.baris;i++){
                 for (int j=0;j<A.kolom;j++){
                     if (j==k){
-                        M.matriks[i][j]=hasil.matriks[i][0];
+                        M.matriks[i][j]=hasil[i];
                     } else {
                         M.matriks[i][j]=A.matriks[i][j];
                     }
                 }
             }
-            System.out.printf("x%d=%f", k+1 ,Determinan.detReduksi(A)/Determinan.detKofaktor(M) );
+            System.out.printf("x%d=%.2f ;", k+1 ,Determinan.detReduksi(A)/Determinan.detReduksi(M) );
+        }
+    }
+    
+    public static void balikan(){
+        Scanner scan = new Scanner(System.in);
+        MATRIKS A = new MATRIKS();
+        System.out.println("Masukkan matriks koefisien");
+        A.bacaMatriks1();
+        double [] hasil = new double [A.kolom];
+        for (int i=0;i<A.kolom;i++){
+            hasil[i]=scan.nextDouble();
+        }
+        double [] variabel = new double [A.kolom];
+        MATRIKS B = Matriks_Balikan.MatriksBalikanGaussJordan(A);
+        variabel = kaliMatriks2(B, hasil);
+        for(int i=0;i<A.kolom;i++){
+            System.out.printf("X%d = %.2f ;", i+1, variabel[i]);
         }
     }
 }

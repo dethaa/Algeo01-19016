@@ -5,11 +5,11 @@ import java.util.Scanner;
 
 public class FileMatriks {
 
-    public static MATRIKS bacaFile(String fileName) {
+    public static MATRIKS bacaFile() {
         
         MATRIKS a = new MATRIKS();
         try {
-            // membaca file
+            String fileName="src/sample.txt";
             File namaFile = new File(fileName);
             Scanner fileReader = new Scanner(namaFile);
             

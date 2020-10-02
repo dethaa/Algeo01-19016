@@ -67,7 +67,7 @@ public class Tubes1Algeo {
                                 m.tulisHasil();
                                 break;
                             case 2:                                
-                                System.out.println("Pastikan lokasi file sudah berada dalam folder src dengan nama sample.txt ");
+                                System.out.println("Pastikan lokasi file sudah berada dalam folder test dengan nama sample.txt ");
                                 MATRIKS M = FileMatriks.bacaFile();
                                 M.gauss();
                                 M.tulisHasil();
@@ -88,7 +88,7 @@ public class Tubes1Algeo {
                                 break;
                                 
                             case 2:
-                                System.out.println("Pastikan lokasi file sudah berada dalam folder src dengan nama sample.txt ");           
+                                System.out.println("Pastikan lokasi file sudah berada dalam folder test dengan nama sample.txt ");           
                                 MATRIKS N = FileMatriks.bacaFile();
                                 N.gaussJordan();
                                 N.tulisHasil();
@@ -108,7 +108,7 @@ public class Tubes1Algeo {
                                 a.balikan();
                                 break;
                             case 2:
-                                System.out.println("Pastikan lokasi file sudah berada dalam folder src dengan nama sample.txt ");
+                                System.out.println("Pastikan lokasi file sudah berada dalam folder test dengan nama sample.txt ");
                                 MATRIKS A =FileMatriks.bacaFile();
                                 A.balikan();
                                 break;
@@ -126,7 +126,7 @@ public class Tubes1Algeo {
                                 baru.tulisMatriks();
                                 break;
                             case 2:
-                                System.out.println("Pastikan lokasi file sudah berada dalam folder src dengan nama sample.txt ");
+                                System.out.println("Pastikan lokasi file sudah berada dalam folder test dengan nama sample.txt ");
                                 MATRIKS Baru =FileMatriks.bacaFile();
                                 Baru.cramer();
                                 break;

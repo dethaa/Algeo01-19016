@@ -1,4 +1,16 @@
-package tubes1algeo;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package tubes_1algeo;
+
+/**
+ *
+ * @author asus
+ */
+
+
 
 import java.util.Scanner;
 import java.io.*;
@@ -166,14 +178,47 @@ public class Tubes1Algeo {
                 break;
             case 3: //Matriks balikan
                 pil3();
+                Matriks_Balikan invers = new Matriks_Balikan();
                 int metode3 = scan.nextInt();
                 switch(metode3){
                     case 1: //Metode eliminasi Gauss-Jordan
+                        MATRIKS m = new MATRIKS();
+                        MATRIKS matbal=new MATRIKS();
+                        m.bacaMatriks1();
+                        if (m.isSquare()){
+                            if (Determinan.detReduksi(m)==0){
+                                System.out.println("Matriks balikannya tidak ada, karena determinannya = 0 ");
+                                System.out.println("Matriks Singular");
+                            }
+                            else{
+                                System.out.println("Matriks balikannya adalah  :");
+                                matbal=invers.MatriksBalikanGaussJordan(m);
+                                matbal.tulisMatriks();
+                            }
+                        } else{
+                            System.out.println("Bukan matriks persegi,  matriks balikan tidak dapat dicari.");
+                        }
                         break;
                     case 2: //Metode adjoin
+                        MATRIKS N = new MATRIKS();
+                        
+                  
+                        N.bacaMatriks1();
+                        if (N.isSquare()){
+                            if (Determinan.detKofaktor(N)==0){
+                                System.out.println("Matriks balikannya tidak ada, karena determinannya = 0 ");
+                                System.out.println("Matriks Singular");
+                            }
+                            else{
+                                System.out.println("Matriks balikannya adalah  :");
+                                matbal=invers.MatriksBalikanAdjoin(N);
+                                matbal.tulisMatriks();
+                            }
+                        } else{
+                            System.out.println("Bukan matriks persegi,  matriks balikan tidak dapat dicari.");
+                        }
                         break;
                 }
-                bacaMenu();
                 break;
             case 4: //Interpolasi polinom
                 Interpolasi ip = new Interpolasi();

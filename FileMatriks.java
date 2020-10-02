@@ -1,4 +1,4 @@
-package tubes1algeo;
+package tubes_1algeo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;

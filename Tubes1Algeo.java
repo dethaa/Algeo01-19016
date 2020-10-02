@@ -1,21 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tubes_1algeo;
-
-/**
- *
- * @author asus
- */
-
-
 
 import java.util.Scanner;
 import java.io.*;
 
-public class Tubes1Algeo {
+public class Tubes_1Algeo {
     
     public static void main(String[] args) {
         bacaMenu();
@@ -185,6 +173,16 @@ public class Tubes1Algeo {
                         MATRIKS m = new MATRIKS();
                         MATRIKS matbal=new MATRIKS();
                         m.bacaMatriks1();
+                      
+                        //Membuat matriks identitas
+                        MATRIKS i = new MATRIKS ();
+                        i.MATRIKS(m.baris, m.kolom);
+                        MATRIKS N = new MATRIKS(); 
+                        i.makeIdentitas(i.baris);
+                        
+                        //matriks inputan digabung matriks identitas
+                        N = N.gabungMatriks(m,i);
+                        
                         if (m.isSquare()){
                             if (Determinan.detReduksi(m)==0){
                                 System.out.println("Matriks balikannya tidak ada, karena determinannya = 0 ");
@@ -192,7 +190,7 @@ public class Tubes1Algeo {
                             }
                             else{
                                 System.out.println("Matriks balikannya adalah  :");
-                                matbal=invers.MatriksBalikanGaussJordan(m);
+                                matbal=invers.MatriksBalikanGaussJordan(N);
                                 matbal.tulisMatriks();
                             }
                         } else{
@@ -200,18 +198,18 @@ public class Tubes1Algeo {
                         }
                         break;
                     case 2: //Metode adjoin
-                        MATRIKS N = new MATRIKS();
+                        MATRIKS M = new MATRIKS();
                         
                   
-                        N.bacaMatriks1();
-                        if (N.isSquare()){
-                            if (Determinan.detKofaktor(N)==0){
+                        M.bacaMatriks1();
+                        if (M.isSquare()){
+                            if (Determinan.detKofaktor(M)==0){
                                 System.out.println("Matriks balikannya tidak ada, karena determinannya = 0 ");
                                 System.out.println("Matriks Singular");
                             }
                             else{
                                 System.out.println("Matriks balikannya adalah  :");
-                                matbal=invers.MatriksBalikanAdjoin(N);
+                                matbal=invers.MatriksBalikanAdjoin(M);
                                 matbal.tulisMatriks();
                             }
                         } else{

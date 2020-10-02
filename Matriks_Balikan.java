@@ -19,44 +19,62 @@ public class Matriks_Balikan extends MATRIKS {
   
     
     
-    public MATRIKS MatriksBalikanGaussJordan(MATRIKS matriks_balikan){
+    public static  MATRIKS MatriksBalikanGaussJordan(MATRIKS m){
       
-            
+    
         
-        MATRIKS i = new MATRIKS();
-        i.MATRIKS(matriks_balikan.baris, matriks_balikan.baris);
-        i.makeIdentitas();
-	MATRIKS N = new MATRIKS();
-        N.MATRIKS(matriks_balikan.baris, (matriks_balikan.kolom)+(i.kolom));
-        N = N.gabungMatriks(matriks_balikan,i);
+
+        
+        //Membuat matriks identitas
+        MATRIKS i = new MATRIKS ();
+        i.MATRIKS(m.baris, m.kolom);
+        MATRIKS j = new MATRIKS ();
+        MATRIKS N = new MATRIKS(); 
+        i.makeIdentitas(i.baris);
+     
+    
+        //matriks inputan digabung matriks identitas
+        N = N.gabungMatriks(m,i);
+ 
+        
+        //
         N.gaussJordan();
-        matriks_balikan = N.potongMatriks((matriks_balikan.kolom), (matriks_balikan.kolom) + (i.kolom)-1);
-       
-        return matriks_balikan;
+     
         
+        MATRIKS r =new MATRIKS ();
+        r.MATRIKS(m.baris, m.kolom);
+        r=N.potongMatriks(N);
+       
+        return r;
             
         
     }
     
     
     
-    public MATRIKS MatriksBalikanAdjoin(MATRIKS m){
-        MATRIKS matriks_balikan = new MATRIKS();
+   
+    public   MATRIKS MatriksBalikanAdjoin(MATRIKS m){
+      
        
-        matriks_balikan.bacaMatriks1();
+ 
+        MATRIKS k  = new MATRIKS();
+        MATRIKS l = new MATRIKS();
+        MATRIKS o = new MATRIKS();
+       
         
+     
+      
+        k=m.Mkofaktor(m);
+    
+        l=k.transpose(k);
+    
+        double r = Determinan.detKofaktor(m); 
+        double s = 1/r;
+       
+        o=l.Kali(l,s);
         
-        int i;
-        if (m.Determinan(m)==0){
-            System.out.println("Matriks Singular");
-            return m;
-        }
-        else{
-            MATRIKS MAdj = m.matriksAdjoin(m);
-            for (i=0;i<m.baris;i++){
-                MAdj.kaliKoef(i,1/m.determinan(m));
-            }
-            return MAdj;
-        }
-    }
+        return o;
+     
+   }
+   
 }

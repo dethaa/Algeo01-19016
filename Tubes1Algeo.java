@@ -1,12 +1,10 @@
 package tubes_1algeo;
 
+import java.io.File;
 import java.util.Scanner;
 import java.io.*;
-import tubes1algeo.FileMatriks;
-import tubes1algeo.MATRIKS;
-import static tubes1algeo.Tubes1Algeo.subMenu1;
 
-public class Tubes_1Algeo {
+public class Tubes1Algeo {
     
     public static void main(String[] args) {
         bacaMenu();
@@ -68,11 +66,9 @@ public class Tubes_1Algeo {
                                 m.gauss();
                                 m.tulisHasil();
                                 break;
-                            case 2:
-                                System.out.println("lokasi file: ");
-                                String line = scan.nextLine();
-                                System.out.println("Pastikan lokasi file sudah tepat ");
-                                MATRIKS M = FileMatriks.bacaFile(line);
+                            case 2:                                
+                                System.out.println("Pastikan lokasi file sudah berada dalam folder src dengan nama sample.txt ");
+                                MATRIKS M = FileMatriks.bacaFile();
                                 M.gauss();
                                 M.tulisHasil();
                                 
@@ -92,10 +88,8 @@ public class Tubes_1Algeo {
                                 break;
                                 
                             case 2:
-                                System.out.println("lokasi file: ");
-                                String line = scan.nextLine();
-                                System.out.println("Pastikan lokasi file sudah tepat ");           
-                                MATRIKS N = FileMatriks.bacaFile(line);
+                                System.out.println("Pastikan lokasi file sudah berada dalam folder src dengan nama sample.txt ");           
+                                MATRIKS N = FileMatriks.bacaFile();
                                 N.gaussJordan();
                                 N.tulisHasil();
                                 break;
@@ -114,10 +108,8 @@ public class Tubes_1Algeo {
                                 a.balikan();
                                 break;
                             case 2:
-                                System.out.println("lokasi file: ");
-                                String line = scan.nextLine();
-                                System.out.println("Pastikan lokasi file sudah tepat ");
-                                MATRIKS A =FileMatriks.bacaFile(line);
+                                System.out.println("Pastikan lokasi file sudah berada dalam folder src dengan nama sample.txt ");
+                                MATRIKS A =FileMatriks.bacaFile();
                                 A.balikan();
                                 break;
                         }
@@ -134,10 +126,8 @@ public class Tubes_1Algeo {
                                 baru.tulisMatriks();
                                 break;
                             case 2:
-                                System.out.println("lokasi file: ");
-                                String line = scan.nextLine();
-                                System.out.println("Pastikan lokasi file sudah tepat ");
-                                MATRIKS Baru =FileMatriks.bacaFile(line);
+                                System.out.println("Pastikan lokasi file sudah berada dalam folder src dengan nama sample.txt ");
+                                MATRIKS Baru =FileMatriks.bacaFile();
                                 Baru.cramer();
                                 break;
                         }
@@ -172,57 +162,14 @@ public class Tubes_1Algeo {
                 break;
             case 3: //Matriks balikan
                 pil3();
-                Matriks_Balikan invers = new Matriks_Balikan();
                 int metode3 = scan.nextInt();
                 switch(metode3){
                     case 1: //Metode eliminasi Gauss-Jordan
-                        MATRIKS m = new MATRIKS();
-                        MATRIKS matbal=new MATRIKS();
-                        m.bacaMatriks1();
-                      
-                        //Membuat matriks identitas
-                        MATRIKS i = new MATRIKS ();
-                        i.MATRIKS(m.baris, m.kolom);
-                        MATRIKS N = new MATRIKS(); 
-                        i.makeIdentitas(i.baris);
-                        
-                        //matriks inputan digabung matriks identitas
-                        N = N.gabungMatriks(m,i);
-                        
-                        if (m.isSquare()){
-                            if (Determinan.detReduksi(m)==0){
-                                System.out.println("Matriks balikannya tidak ada, karena determinannya = 0 ");
-                                System.out.println("Matriks Singular");
-                            }
-                            else{
-                                System.out.println("Matriks balikannya adalah  :");
-                                matbal=invers.MatriksBalikanGaussJordan(N);
-                                matbal.tulisMatriks();
-                            }
-                        } else{
-                            System.out.println("Bukan matriks persegi,  matriks balikan tidak dapat dicari.");
-                        }
                         break;
                     case 2: //Metode adjoin
-                        MATRIKS M = new MATRIKS();
-                        
-                  
-                        M.bacaMatriks1();
-                        if (M.isSquare()){
-                            if (Determinan.detKofaktor(M)==0){
-                                System.out.println("Matriks balikannya tidak ada, karena determinannya = 0 ");
-                                System.out.println("Matriks Singular");
-                            }
-                            else{
-                                System.out.println("Matriks balikannya adalah  :");
-                                matbal=invers.MatriksBalikanAdjoin(M);
-                                matbal.tulisMatriks();
-                            }
-                        } else{
-                            System.out.println("Bukan matriks persegi,  matriks balikan tidak dapat dicari.");
-                        }
                         break;
                 }
+                bacaMenu();
                 break;
             case 4: //Interpolasi polinom
                 Interpolasi ip = new Interpolasi();

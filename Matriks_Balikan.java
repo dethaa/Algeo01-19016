@@ -20,13 +20,13 @@ public class Matriks_Balikan extends MATRIKS {
     }
     
     
-    public   MATRIKS MatriksBalikanAdjoin(MATRIKS m){
+    public static MATRIKS MatriksBalikanAdjoin(MATRIKS m){
       
         MATRIKS k  = new MATRIKS();
         MATRIKS l = new MATRIKS();
         MATRIKS o = new MATRIKS();
         
-        k=m.Mkofaktor(m);
+        k=Mkofaktor(m);
         l=k.transpose(k);
     
         double r = Determinan.detKofaktor(m); 

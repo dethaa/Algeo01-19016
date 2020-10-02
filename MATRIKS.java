@@ -317,6 +317,7 @@ public class MATRIKS {
             System.out.println("Solusi tidak ada");
         } else if (solBnyk){
             MATRIKS var = new MATRIKS();
+            var.makeMATRIKS(this.kolom-1, this.kolom-1);
             var.makeIdentitas(this.kolom-1);
             for (int R=0;R<this.kolom-1;R++){
                 if (!(this.isBrsZero(R))){
@@ -442,7 +443,7 @@ public class MATRIKS {
         Scanner scan = new Scanner(System.in);
         double [] variabel = new double [A.kolom];
         MATRIKS B = Matriks_Balikan.MatriksBalikanAdjoin(A);
-        variabel = kaliMatriks2(B, hasil);3
+        variabel = kaliMatriks2(B, hasil);
                 
         for(int i=0;i<A.baris;i++){
             System.out.printf("X%d = %.2f ;", i+1, variabel[i]);
@@ -491,7 +492,7 @@ public class MATRIKS {
     }
     
     
-    public MATRIKS  Mkofaktor(MATRIKS m){
+    public static MATRIKS  Mkofaktor(MATRIKS m){
         MATRIKS N = new MATRIKS();
         N.MATRIKS(m.baris, m.kolom);
         for (int i = 0; i <= m.baris-1; i++)

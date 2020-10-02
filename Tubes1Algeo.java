@@ -2,6 +2,9 @@ package tubes_1algeo;
 
 import java.util.Scanner;
 import java.io.*;
+import tubes1algeo.FileMatriks;
+import tubes1algeo.MATRIKS;
+import static tubes1algeo.Tubes1Algeo.subMenu1;
 
 public class Tubes_1Algeo {
     
@@ -61,17 +64,18 @@ public class Tubes_1Algeo {
                         switch (inputan1){
                             case 1:
                                 MATRIKS m = new MATRIKS();
-                                m.bacaMatriks1();
+                                m.bacaMatriks1();                                
                                 m.gauss();
                                 m.tulisHasil();
                                 break;
                             case 2:
-                                System.out.println("Pastikan terdapat file matriks augmented dalam file test, dengan nama Matriks.txt");
-                                File file1 = new File();
-                                MATRIKS M = new MATRIKS();
-                                M =file1.bacaMatriks("../test/Matriks.txt");
+                                System.out.println("lokasi file: ");
+                                String line = scan.nextLine();
+                                System.out.println("Pastikan lokasi file sudah tepat ");
+                                MATRIKS M = FileMatriks.bacaFile(line);
                                 M.gauss();
                                 M.tulisHasil();
+                                
                                 break;
                         }
                         
@@ -88,10 +92,10 @@ public class Tubes_1Algeo {
                                 break;
                                 
                             case 2:
-                                System.out.println("Pastikan terdapat file matriks augmented dalam file test, dengan nama Matriks.txt");
-                                File file2 = new File();
-                                MATRIKS N = new MATRIKS();
-                                N =file2.bacaMatriks("../test/Matriks.txt");
+                                System.out.println("lokasi file: ");
+                                String line = scan.nextLine();
+                                System.out.println("Pastikan lokasi file sudah tepat ");           
+                                MATRIKS N = FileMatriks.bacaFile(line);
                                 N.gaussJordan();
                                 N.tulisHasil();
                                 break;
@@ -110,13 +114,14 @@ public class Tubes_1Algeo {
                                 a.balikan();
                                 break;
                             case 2:
-                                System.out.println("Pastikan terdapat file matriks augmented dalam file test, dengan nama Matriks.txt");
-                                File file3 = new File();
-                                MATRIKS A = new MATRIKS();
-                                A =file3.bacaMatriks("../test/Matriks.txt");
+                                System.out.println("lokasi file: ");
+                                String line = scan.nextLine();
+                                System.out.println("Pastikan lokasi file sudah tepat ");
+                                MATRIKS A =FileMatriks.bacaFile(line);
                                 A.balikan();
                                 break;
                         }
+                        break;
                     case 4: //Kaidah cramer
                         subMenu1();
                         int inputan4=scan.nextInt();                        
@@ -126,12 +131,13 @@ public class Tubes_1Algeo {
                                 System.out.println("Masukkan matriks augmented.");
                                 baru.bacaMatriks1();
                                 baru.cramer();
+                                baru.tulisMatriks();
                                 break;
                             case 2:
-                                System.out.println("Pastikan terdapat file matriks augmented dalam file test, dengan nama Matriks.txt");
-                                File file4 = new File();
-                                MATRIKS Baru = new MATRIKS();
-                                Baru =file4.bacaMatriks("../test/Matriks.txt");
+                                System.out.println("lokasi file: ");
+                                String line = scan.nextLine();
+                                System.out.println("Pastikan lokasi file sudah tepat ");
+                                MATRIKS Baru =FileMatriks.bacaFile(line);
                                 Baru.cramer();
                                 break;
                         }

@@ -1,9 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tubes_1algeo;
+
 import java.util.Scanner;
 
 public class MATRIKS {
@@ -200,7 +196,7 @@ public class MATRIKS {
         return M;
     }
     
-     public void makeIdentitas(int r){   
+    public void makeIdentitas(int r){   
         for (int i = 0; i < r ; i++){
             for (int j = 0; j < r ; j++){
                 if (i == j){
@@ -240,18 +236,21 @@ public class MATRIKS {
         return gabungan;
     }
     
-    public MATRIKS potongMatriks(MATRIKS m){
-        MATRIKS N = new MATRIKS();
-        N.MATRIKS(m.baris ,m.baris); 
-              
-        for (int i = 0; i < N.baris; i++){
-                
-            for (int j = 0; j < N.kolom; j++){
-                    N.matriks[i][j]= m.matriks[i][j+m.baris];
-            }
-        } 
-	
-        return N;
+    public MATRIKS potongMatriks(int a, int b){
+        MATRIKS potong = new MATRIKS();
+        potong.MATRIKS(this.baris ,b-a+1); 
+        if ((a >= 0 && a < this.kolom) && (b >= 0 && b < this.kolom) && (a <= b)){            
+            for (int i = 0; i < this.baris; i++){
+                int Kolom = 0;
+                for (int j = a; j <= b; j++){
+                    potong.matriks[i][Kolom] = this.matriks[i][j];
+                    Kolom++;
+                }
+            } 
+	}
+        else{  
+	}
+        return potong;
     }
     
     public void gauss(){
@@ -425,7 +424,7 @@ public class MATRIKS {
                     }
                 }
             }
-            System.out.printf("x%d=%.2f ;", k+1 ,Determinan.detReduksi(A)/Determinan.detReduksi(M) );
+            System.out.printf("x%d=%.2f ;", k+1 ,Determinan.detKofaktor(A)/Determinan.detKofaktor(M) );
         }
         System.out.println("\n");
     }
@@ -453,108 +452,4 @@ public class MATRIKS {
         }
         System.out.println("\n");
     }
-
-
-
-    
-    
-     public MATRIKS minor(MATRIKS m, int b, int k){
-        
-        MATRIKS Minor = new MATRIKS();
-        Minor.MATRIKS(m.baris - 1, m.kolom - 1);
-        int iMi, jMi, iM, jM;
-        iMi = 0;
-        for (iM = 0; iM <= m.baris-1; iM++)
-            if (iM != b) {
-                jMi = 0;
-             
-                for(jM = 0; jM <= m.kolom-1; jM++)
-                    if (jM != k) {
-                        Minor.matriks[iMi][jMi] = m.matriks[iM][jM];
-                        jMi++;
-                    }
-                iMi++;
-            }
-      
-        return Minor;
-       
-    }
-    
-    public double kofaktor(MATRIKS m, int i, int j){
-        if ((i + j) % 2 == 0){
-            return Determinan.detKofaktor(m.minor(m, i, j));
-        }
-        else{
-            return Determinan.detKofaktor(m.minor(m, i, j))*(-1);
-        }
-
-            
-        
-        
-        
-    }
-    
-    
-    public MATRIKS  Mkofaktor(MATRIKS m){
-        MATRIKS N = new MATRIKS();
-        N.MATRIKS(m.baris, m.kolom);
-        for (int i = 0; i <= m.baris-1; i++)
-            for (int j = 0; j <= m.kolom-1; j++) {
-                N.matriks[i][j] = m.kofaktor(m, i, j);
-            }
-        return N;
-       
-    }
-    
-    
-    
-    
-    
-    
-    public MATRIKS transpose (MATRIKS m){
-        MATRIKS N = new MATRIKS();
-        N.MATRIKS(m.baris, m.kolom);
-
-        for (int i = 0; i <= N.baris-1; i++) {
-            for (int j = 0; j <= N.kolom-1; j++) {
-                N.matriks[i][j] = m.matriks[j][i];
-            }
-        }
-
-        return N;
-    }
-    
-    
-    
-    
-    
-    public  MATRIKS adjoin(MATRIKS m) {
-       
-	if ((m.baris*m.kolom) != 1) {
-            m.Mkofaktor(m);
-            m.transpose(m);
-        } else {
-            m.matriks[0][0] = 1;
-        }
-        return m;
-	
-    }
-    
-    public MATRIKS Kali(MATRIKS m, double x){
-       
-        
-       
-        for (int i = 0; i < m.baris; i++) {
-            for (int j = 0; j < m.kolom; j++) {
-                m.matriks[i][j]= m.matriks[i][j]*x;
-            }
-        }
-    
-            
-        
-        return m;
-    }
-    
-   
 }
-

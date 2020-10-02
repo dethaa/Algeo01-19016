@@ -9,7 +9,7 @@ public class FileMatriks {
         
         MATRIKS a = new MATRIKS();
         try {
-            String fileName="src/sample.txt";
+            String fileName="test/sample.txt";
             File namaFile = new File(fileName);
             Scanner fileReader = new Scanner(namaFile);
             

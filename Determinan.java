@@ -31,15 +31,14 @@ public class Determinan extends MATRIKS {
                     }
                 } 
                 
+                }
                 det++;
                 for (int a=0;a<m.getBrs();a++){
                     det*=m.getElmt(a, a);
                 }
                 det*=nSwap;
-            }
-        
         }
-        return (det);
+    return (det);  
     }
     public static double detKofaktor(MATRIKS m){
         MATRIKS temp = new MATRIKS();
@@ -67,6 +66,6 @@ public class Determinan extends MATRIKS {
             }
         } 
         return(det);
-    } //masih berhasil utk 2X2 dan 3X3
+    } 
     
 }

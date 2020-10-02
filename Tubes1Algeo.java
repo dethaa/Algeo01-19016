@@ -1,6 +1,7 @@
 package tubes1algeo;
 
 import java.util.Scanner;
+import java.io.*;
 
 public class Tubes1Algeo {
     
@@ -38,6 +39,11 @@ public class Tubes1Algeo {
         System.out.println();
         System.out.print("Pilih angka: ");
     }
+    public static void subMenu1(){
+        System.out.println("1. Input melalui keyboard");
+        System.out.println("2. Input dengan file");
+        System.out.print("Pilih angka: ");
+    }
     public static void bacaMenu(){
         Scanner scan = new Scanner(System.in);
         
@@ -47,28 +53,88 @@ public class Tubes1Algeo {
             case 1: //SPL
                 pil1();
                 int metode1 = scan.nextInt();
-                switch(metode1){
+                
+                switch(metode1){                    
                     case 1: //Metode eliminasi Gaus
-                        MATRIKS m = new MATRIKS();
-                        m.bacaMatriks1();
-                        m.gauss();
-                        m.tulisHasil();
+                        subMenu1();
+                        int inputan1=scan.nextInt();                  
+                        switch (inputan1){
+                            case 1:
+                                MATRIKS m = new MATRIKS();
+                                m.bacaMatriks1();
+                                m.gauss();
+                                m.tulisHasil();
+                                break;
+                            case 2:
+                                System.out.println("Pastikan terdapat file matriks augmented dalam file test, dengan nama Matriks.txt");
+                                File file1 = new File();
+                                MATRIKS M = new MATRIKS();
+                                M =file1.bacaMatriks("../test/Matriks.txt");
+                                M.gauss();
+                                M.tulisHasil();
+                                break;
+                        }
+                        
                         break;
                     case 2: //Metode eliminasi Gauss-Jordan
-                        MATRIKS n = new MATRIKS();
-                        n.bacaMatriks1();
-                        n.gaussJordan();
-                        n.tulisHasil();
+                        subMenu1();
+                        int inputan2=scan.nextInt();
+                        switch(inputan2){
+                            case 1:
+                                MATRIKS n = new MATRIKS();
+                                n.bacaMatriks1();
+                                n.gaussJordan();
+                                n.tulisHasil();
+                                break;
+                                
+                            case 2:
+                                System.out.println("Pastikan terdapat file matriks augmented dalam file test, dengan nama Matriks.txt");
+                                File file2 = new File();
+                                MATRIKS N = new MATRIKS();
+                                N =file2.bacaMatriks("../test/Matriks.txt");
+                                N.gaussJordan();
+                                N.tulisHasil();
+                                break;
+                        }
+                        
                         break;
+                        
                     case 3: //Metode matriks balikan1
-                        MATRIKS.balikan();
-                        break;
+                        subMenu1();
+                        int inputan3 = scan.nextInt();                        
+                        switch (inputan3){
+                            case 1:
+                                MATRIKS a=new MATRIKS();
+                                System.out.println("Masukkan matriks augmented.");
+                                a.bacaMatriks1();
+                                a.balikan();
+                                break;
+                            case 2:
+                                System.out.println("Pastikan terdapat file matriks augmented dalam file test, dengan nama Matriks.txt");
+                                File file3 = new File();
+                                MATRIKS A = new MATRIKS();
+                                A =file3.bacaMatriks("../test/Matriks.txt");
+                                A.balikan();
+                                break;
+                        }
                     case 4: //Kaidah cramer
-                        MATRIKS baru=new MATRIKS();
-                        System.out.println("Masukkan matriks augmented.");
-                        baru.bacaMatriks1();
-                        baru.cramer();
-                        break;
+                        subMenu1();
+                        int inputan4=scan.nextInt();                        
+                        switch (inputan4){
+                            case 1:
+                                MATRIKS baru=new MATRIKS();
+                                System.out.println("Masukkan matriks augmented.");
+                                baru.bacaMatriks1();
+                                baru.cramer();
+                                break;
+                            case 2:
+                                System.out.println("Pastikan terdapat file matriks augmented dalam file test, dengan nama Matriks.txt");
+                                File file4 = new File();
+                                MATRIKS Baru = new MATRIKS();
+                                Baru =file4.bacaMatriks("../test/Matriks.txt");
+                                Baru.cramer();
+                                break;
+                        }
                 }
                 bacaMenu();
                 break;
